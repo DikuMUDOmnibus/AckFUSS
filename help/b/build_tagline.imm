@@ -1,0 +1,82 @@
+BUILD HELP : TAGLINE
+------------------
+
+Taglines are HTML-like tags that can be used in room, mob, and obj descriptions
+to make them more dynamic. If a tagline matches, the portion within it will be
+displayed, if it doesn't match, it won't be shown.
+
+Example description:
+ You are in a large room with no exits, oh no! [#immortal: Hey, you're an imm!
+ you can make your own exit!]
+
+To a non-immortal, it would display only the first half, prior to the [#immortal:]
+tag. Immortals, however, would see the first half and the extra text within the tag.
+
+Tag Name                           Usage
+----------                         ----------
+str                                [#str < 9: You're a weakling!]
+int                                [#int > 15: You're a smart cookie.]
+wis                                [#wis == 10: You're no wiser than normal.]
+dex                                [#dex >= 9: You're no more nimble than normal.]
+con                                [#con <= 17: You've been sick an average amount.]
+hp                                 [#hp < 100: Your health is too low for this area.]
+mp                                 [#mp > 1000: You have a lot of mana!]
+mv                                 [#mv <= 50: Your movement is critical!]
+maxhp                              [#maxhp > 1000: You have more than 1000 health.]
+maxmp                              [#maxmp < 1000: You have less than 100 mana.]
+maxmv                              [#maxmv == 1000: You have exactly 1000 moves.]
+hr                                 [#hr > 100: Your attacks are amazingly accurate.]
+dr                                 [#dr > 100: Your attacks are very strong.]
+ac                                 [#ac < -100: You take little damage.]
+age                                [#age != 17: You're not 17!]
+sun                                [#sun sunrise: The sun is coming up.]
+time                               [#time > 19: Thieves come out with the night.]
+day                                [#day >= 10: Half the month has already passed.]
+month                              [#month == 1: This is the first month of the year!]
+moonloc                            [#moonloc low: The moon is low in the sky.]
+moonphase                          [#moonphase full: A full moon is visible tonight.]
+weather                            [#weather rain: Puddles of rain pool on the ground.]
+level                              [#level > 80: You're no longer a mortal, woohoo!]
+alignment                          [#alignment good: You bask in the glory of God.]
+sex                                [#sex male: You're a dude, dude.]
+race                               [#race human: Humans are the most versitile race.]
+class                              [#class mag: Mages are adept in the arts of magic.]
+remort                             [#remort ass: Stealthy and quick is the Assassin.]
+hungry                             [#hungry: The bread looks very inviting...]
+thirsty                            [#thirsty: The water fountain looks cool and refreshing.]
+immortal                           [#immortal: You're an imm, woo!]
+drunk                              [#drunk: Hic! .. You can't see your feet anymore...]
+position                           [#position standing: Standing tall for all to see is you!]
+isname                             [#isname Kline: You're Kline. You RULE!]
+istitle                            [#istitle ' the pious': You seem like a very Holy person.]
+clan                               [#clan Alpha: You seem to be a clan Alpha member...Look out!]
+super                              [#super vamp: Vampire! Run from the guards!]
+name                               [#name: I see you there, $.]
+
+Tag Name                           Arguments
+----------                         ----------
+all stats                          >, <, ==, >=, <=, !=
+age                                >, <, ==, >=, <=, !=
+sun                                day, night, sunrise, sunset
+time                               >, <, ==, >=, <=, != (Time is in hours, from 0 - 24)
+day                                >, <, ==, >=, <=, != (There are 20 days to a month)
+month                              >, <, ==, >=, <=, != (There are 8 months in a year)
+moonloc                            down, rise, low, peak, fall, set
+moonphase                          new, waxcre, waxhalf, waxgib, full, wangib, wanhalf, wancre
+weather                            clear, cloudy, rain, lightning
+level                              >, <, ==, >=, <=, != (Uses psuedo level: mort + (remort / 4))
+alignment                          >, <, ==, >=, <=, !=, good, neutral, evil
+sex                                neutral, male, female
+race                               any race name
+class                              any mortal class abbr (Checks for primary class)
+remort                             any remortal class abbr
+hungry                             none
+thirsty                            none
+immortal                           none
+drunk                              none
+position                           resting, standing, fighting
+isname                             any name (1 word)
+istitle                            any string within 'quotes', add a leading space, ie: ' cool title'
+clan                               any clan name, multiple words within 'quotes'
+super                              vamp, wolf, hunter
+name                               none

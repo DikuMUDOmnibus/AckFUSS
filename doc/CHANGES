@@ -1,0 +1,279 @@
+4.4.1 - 28 Nov 09:
+ AreaConvert 1.0 created. It currently converts ACK!MUD 4.3.1 format files to AckFUSS. More formats will be added, both to and from, as I have time.
+ Minor warning fixes after a G++ update.
+ ch->send() Is pretty magical...Now if only it would warn on invalid foring :(
+ NAME() and PERS() macros gone, use target->get_name() or target->get_name(looker).
+ All do_ and spell_ functions are prototyped  with macros to be more easily updated.
+ All header files were standardized.
+ Started a FAQ file :)
+ More prototype updates on commands, but most notably, char_data no longer has char* pointers, they are all strings. Yes, there is a lot of c_str() use for backward compat, but this is the beginning of moving forward -- one step at a time.
+ Finished with cleaning out char_data. All that's left in it are common PC/NPC fields, the rest are all in pcdata/npcdata.
+ Whew....Lots of changing to utilize ch->get_level(). It will prove invaluable down the road. Still more work ahead with this.
+ Added mbr_fun.c to hold member functions for classes. Added a few more functions to char_data().
+ Removed spec_tax_man.
+ Removing some more dead weight IMC code meant for other MUD bases -- don't need it!
+ Minor fix in db.c to get rib of ambiguity calling pow() in fread_float() on certain systems.
+ Entirely re-worked aggr_update() for efficiency. Larger games should see a noted CPU decrease.
+ ACT_REMEMBER mobs can now remember more than one person, and have an improved check (no more dodging them mid-tick).
+ All headers/includes were re-tooled/organized since I got bored.
+ All do_() commands now have a default argument of NULL, and only require a character to be called.
+ Added do_logins() for players to see their last MAX_LOGINS of successful login sites.
+ Added player domain whitelists, for players to enable/disable only logging in from specific domains.
+ Replaced all ch->lvl[] and ch->lvl2[] "magic number" references with the appropriate defines.
+ Minor updates to standardize output on all shop related commands.
+ Fixed a newline issue in sacrifice.
+ All Item Manipulation command helpfiles are going in with this commit.
+ All "action" commands have helps now -- onward to Item Manipulation!
+ Fixed a buffer overflow in do_report.
+ Corrected do_stance level checks.
+ Added #define values in config.h for classes, need to globaly use these some day (started with stance).
+ More command prototyping done, removed an obsolete "guild" command and helpfile.
+ 'Spells' now displays proper cast speed as calculated in 'cast'.
+ Finished adding all helpfiles for 'information' commands.
+ Rooms added to Lua, but crashing on some access. Committing now before I try a large re-org of how Lua lists are to try and fix this.
+ Ripped out the non-functioning (incomplete) structs/lists for area control by rulers. It will make a re-appearance, down the road, but for now it's dead weight.
+ Removed a depricated define (ACK_43). Added a safety check for the Lua dtor, initialized a few variables trying to sort out uninit errors with the mapper (still working this one), and corrected more display options that I missed in do_config().
+ Fixed an error regarding fgetc() in the IMC code. Added in_loc() to return the room of an object depending on carried/in_obj/etc status. Added non-blocking wait coroutine handling for players and objects to aid in scripting (think: timed delays), although the delays don't seem to process on objs yet -- need to look into this further, but comitting now before I forget everything.
+ Fixed a buffer overflow in hotreboot that only manifested on a few Ubuntu builds.
+ Moved Lua states into a lua_data structure with some tracking info. This allows for a single list of all active Lua instances to be iterated over instead of having to search the entire char, obj, and room lists each time we need to find something.
+ Minor display fixes on nosummon/novisit.
+ Obj data pushed over to Lua now.
+ Scripts now load/act properly on objs. Added an recho API function.
+ Exposed all pertinent values of char_data/pcdata/npcdata to Lua access.
+ Committing Lua 5.1 to be included, and pre-compiled. The library was built as "posix"; so it should feasibly run on any POSIX compliant OS without issue.
+ Forgot the doc updates. NOTE: LUA 5.1 IS REQUIRED TO RUN ACKFUSS NOW! This may require you to edit ack.h and Makefile to properly point to your own Lua install locations.
+ Fixed some issues with areas saving in the wrong place if the game wasn't started from the area dir.
+ Started work on a new zone.
+ Added Lua scripting support to players/mobs! It is very basic, and based on Nick Gammon's Smaug code, but except much more to come of this soon!
+ Removed tail_chain(). Really, we don't need it.
+ Tracking first boot in mudinfo now, because I can :).
+ 100% clean compile on Ubuntu now!
+ Stripped another depricated freelist.
+ Remove an erroneous command; add more helps.
+ Added "remort" for remorttalk instead of only "{". Some new helps, too.
+ Re-added death announces via INFO. Added some helpfiles. Redid the commands command (hah).
+ Allow Imms to always send tells to a player despite AFK status.
+ You can now help -find <help title> or help -search <word in help>.
+ Taglines are in for dynamic room/obj/mob descs. See the helpfile! Further commits will follow with more tags added.
+ More cooldown stuff added. Just need to make some functions to set them based on the const table, now.
+ Added initial framework for melee cooldowns. Added RMOD for fast casting, gives 15% spell haste. Gnome, Elf, Sidhe, and Elemental have this added to them.
+ Killed an extra newline in room affect messages.
+ Stop casting on recall or flee. Also added a silent stop to char_from_room() to catch things like transfer, summon, etc.
+ All const work done. Spells cmd now shows cast time in addition to mana cost. Mstat displays casting info.
+ Casting prompt token added, pushback fully added.
+ Fix for mudinfo, oops. Also stop_casting() on death.
+ Adding the first bits of pushback support, maximum controlled via sysdata.
+ Stop was added and stop_casting() to movement. No attacks in combat while casting.
+ Part of the skill table is updated for spells to use proper cast times, still have to finish most of the remort stuff.
+ Cast now gives feedback (player and room) and prevents casting if already casting.
+4.4.0 - 14 Mar 09:
+ Fix in dam messages and charm checks.
+ Fixed a bug in peace(), make level 1 items not lose durability, NPC-equipped items not lose durability, and the chance to lose durability much less.
+ Cosmetic log fix for IMC, but importantly newbie school is DONE.
+ Added a notake flag for items to be able to leave items in a room as a reset, spawn on mobs gear that players shouldn't get, etc.
+ Added ch_printf from Smaug with printf-style type-checking, too.
+ Fixed a display issue with light wear slot.
+ 'Within' resets have been added, to allow spawning one object within another. within 1054 1055 5 would spawn up to 5 copies of obj 1055 inside of obj 1054.
+ Added a NO_MOB flag to doors to give better control of blocking mobs from places at an exit level, instead of per room.
+ Fixed practice segfaulting, yay!
+ Minor display fix in score when super flags are toggled.
+ Now sending all currently supported MSSP vars.
+ write_to_buffer() and write_to_descriptor() now take an optional size argument. If you need to specify a size, do so, as the last argument, otherwise it can be omitted and let the func determine the size itself.
+ Marks got an overhaul. They are now an STL list attached to each room, instead of a global list of room containers.
+ The Makefile now (dirtilly) has -Wno-write-strings to suppressed const errors at the moment -- it's a huge undertaking to update them when it hasn't caused problems (afaik) yet. They will be fixed; just not right now.
+ Moved clan out of pcdata to char_data; let mobs play a role.
+ All room/obj/mob fields should now clone (unless I missed something -- please let me know). This includes shops, extra descrs, everything.
+ Added a 'disable' command for immortals. 
+ Removed some redundant code already handled in ctor.
+ Fixed an error in do_save() with displaying level checks.
+ No longer do any magic spells cycle the entire freaking char_list() just to send a same-area message.
+ Added in area_message() to message all PCs within an area.
+ Added -Wconversion too, luckily the code is already compliant, no fixes :D
+ Added -Wshadow to the Makefile and fixed things accordingly.
+ Changed new_descriptor() to use socklen_t vs size_t for the socket size due to OSX compat issues -- works fine on Debian, so hopefully it's good (more modern?) across the board.
+ Ripped out the hardly used pointer referencing system. Not sure what it did in the first place!
+ Removed mobprogs -- looking into Ruby or Lua to be embedded instead instead of a hack psuedo language.
+ Fixed quest liking to return !NPC targets for some reason.
+ Calor area is complete! Added in "charm" items. Different charms apply different bonuses (% based). Current charms available in Calor affect: exp, gold, melee combat, magic combat, regen, and hunger.
+ Added item level checks to quaff, eat, and drink. Zap and brandish already have these by virtue of having to equip the item first.
+ Added some item types for future use (professions).
+ Fixed a typo in SHOP saving format.
+ Fixed identify displaying 'reserved' spell on pots.
+ Fixed a bad debug message with do_give.
+ Improved output for exit flags in redit and rstat.
+ Pushed reward values back into the object for easy display with iquest.
+ Optimized loop for finding a quest mob based on top index.
+ Mis-labeled weapon values in buildtab, fixed an extra newline display in the auto quest system.
+ Some (int) -> static_cast<int>(val) updates to be more precise. Also fixed spec_cast_adept() to account for the current Christmas date.
+ \n\r -> \r\n -- We now do things "proper" :P Also removed a line of debug code I missed way back in channel history, oops!
+ Slightly improved performance on aggro mobs.
+ Groups now split xp evenly based on level / tot_level for all members. This also displays in the group command for all to see.
+ Anybody can now follow/group with anybody.
+ Weapons now load v0 (mindam) and v1 (maxdam) based on builder values.
+ Setting an obj level now gives it a durability of (level * 5) by default. This can be overriden with durability.
+ Rare objs get +15% stats in autoobj.
+ Fixed a display issue of long_desc objs using look.
+ Recall during DM now recalls to ROOM_VNUM_DM_RECALL instead of psuedo-random.
+ Updated some more common vnum defines, started making default zones to go along with it. (Etheral, city, newbie school)
+ Typo, Idea, and Bug now have associated monitor channels. So do routine logfile messages.
+ Removed more outdated free_list lists.
+ A lot of NPC-only fields are now in ch->npcdata similar to PC-only fields in ch->pcdata.
+ Ghost code! You die, drop corpse, turn ghost, can be rezzed (auto after 3-5m, by healer, or Cle spell)...Fun!
+ Updated "look in" for portals some. Fixed obj resets.
+ Exdesc autonewline fixes.
+ Newline append fix.
+ Fixed a crash in note writing. Adding more areas and vnum defines in config.
+ Re-organized a lot of code. Most C files are now have their own headers. Lots of dead cruft gone, too.
+4.3.9 - 17 Dec 08:
+ A -LOT- of C++ conversion has happened in this release! Area files are entirely different, too!
+ Added two new types to mquest based on mob race.
+ Fixed a crash bug with the speedwalk detection.
+ Autobrief added to let players disable the speed walk suppression of room displays.
+ Added how to delete a note on look <board> per Sasuke's suggestion. Updated the writing parser with !str_prefix() instead of the ugly case-sensitive 
+ checks it had. Should work with .save .Save, etc etc.
+ Optimized char_list looping.
+ #ifdef IMC fix for the midnight keepalive.
+ Fixed a display bug in, oddly enough, bug().
+ Added a missing color code. Changed '%' to send socials over IMC, '@' was breaking color codes.
+ Added all "player" (I use the term loosely) act flags to a table for easy lookup with mstat.
+ What once was ch->pcdata->pflags has been consolidated into ch->act
+ ch->config migrated to ch->act now too
+ Updated the Makefile to use dependencies and hide obj files out of the way.
+ Updated Makefile and startup script. New startup will check for ports in use to avoid constant looping and logs.
+ Moved to compiling with g++ by default. Code updated to actually do this cleanly!
+ Moving prototypes to individual headers for readability. Slow and steady.
+ Cleaned out the AIX/SYSV/etc ancient stuff still around.
+ More headers and cleaned out the multi-base code from IMC; no need to haul it around.
+ xprintf is gone, now using snprintf. xcat is gone, now using strncat.
+ A lot of C++ work with new/delete and removal of bitmasks to bitsets. I'm sure there are many more edits too (incl super new Makefile) but I honestly don't remember them all!
+ Help update for new build command (Addroom) and minor re-org.
+ Added aobj help -- oops. Also added a "list" argument to aobj. Some fixes I missed with the previous object updates, too.
+ Objs no longer crash on load :D
+ Minor Makefile edit for -DWIN32 not being used with Cygwin.
+ Moved reset tracking to per-reset. This should work ok, but report problems if any are found. Also another freelist bites the dust!
+ A lot of things are now bitsets (infinite flags)!
+4.3.8 - 14 Sep 08:
+ Auto-object is complete with a mod table. ie: aobj weapon will modify the level-based values with "weapon" stats -- only hr and dr, and a percentage of the level's base stats. Adjust the sysdata values or the build table as needed for customization :).
+ Auto-object is in. Use aobj when editing an object, adjust the top-end values with sysdata while in build mode.
+ A build version of sysdata is in to configure values for the auto-object system and future use.
+ Some bugfixes with strlower() being used.
+ Mobs now get save_vs_spell on load. A new sysdata option, mobsvs, was added for this, also.
+ Fixed a minor align bug in setarea and a bug in saving the Area list.
+ Starting to build a 1 to 5 newbie zone, well, because I can.
+ Moved all references for door counting to a MAX_DIR define in config.h
+ Added color tokens for random color and random back color.
+ Items now have durability and take damage in combat. Once an item is broken (no durability) it falls off to inv and is un-usable until repaired. 
+ Repair command in place to handle this though the costs may need adjusting :D
+ Added brawl code. Mobs can now be "swept up" into a fight in their room.
+ Updated with MAX_MOVE_DISPLAY for the number of rooms to auto-look on enter while moving. Past this number players will only be shown a room name and exits. Good for speed walking :).
+ xprintf updated to replace the last relics of sprintf used in the mapper and bug() calls.
+ Safe command added to let a player know if their room is flagged safe or not.
+ Fixed iquest to show money values.
+ Added a "delete" arg to mgive.
+ Updated autoquest to use top_mob_index instead of 1000 loop.
+ Fixed no fight damage messages.
+ Added 'exp' to mset.
+ mquest (thanks Abel) is in. Generates random quests for players to do for qp/gold/exp.
+ Changed save to allow arg "auto" to save quietly; updated all occurrences of this.
+ Fixed a lot of missing !IS_NPC() checks in saving.
+ Removed an un-used ITEM_DARK sharing flags with ITEM_NODISARM.
+ Added MONITOR_HELPS to the monitor table, oops.
+4.3.7 - 29 Aug 08:
+ Removed lots of unused code.
+ Added 'color' support for all regular channels.
+ Renamed dirs to be standardized (singular, not plural).
+ Allow immortals to always pickup quest items.
+ Updated stock sysdata file.
+ Added a records struct to pcdata, moved all records there and added some new ones to track.
+ "Prettied up" pfile saves for fields to align, it annoyed me.
+ Added MONITOR_HELPS to display when players can't find a help file.
+ Added a new sysdata option: damcap. In Ack 4.3.1 all damage was limited to 3000, this is now configurable.
+ Changed area format slightly; stop saving un-needed information.
+ Sorted helps by first letter, updated code to match. All helps are DONE now, too. Only need to keep up with it as I go along :)
+ Holy Armor now has a duration based on level instead of static.
+ Deflect Weapon duration now based on level, not just static.
+ Added a new sysdata option to that controls how much classes cost per level based on number of mob kills per level. No more const EXP table.
+ Fixed a bug in help with : in filenames.
+ Fixed a bug in IMC parsing the who template.
+ Updated IMC to support whonames via imcwho and a more uniform default template.
+ Added _popen to output shell commands to a char and handle fpReserve management with it.
+ smash_replace() is an upgraded smash_tilde(). smash_tilde() was moved to use it and has only been kept for backwards compatibility.
+ Added an abandon command to drop all followers.
+ Closed a possible file descriptor leak in count_helps().
+ Olmsg now actually saves and oload now also uses it, yay for fun imm stuff :P
+4.3.6 - 25 Jul 08:
+ Added a delhelp for the new helpfile system.
+ Helpedit works with the new helpfile system.
+ Added a basic Deathmatch arena and updated transdm to work with it.
+ Removed clutchinfo command, it should have been a helpfile from the start.
+ Removed mpstat and bundled it into mstat.
+ Added file_open() and file_close() to handle fpReserve. Call file_close() even if file_open() failes to re-open fpReserve!
+ Updated all wait_states (const table, etc) to fit properly with 100 pulse/sec.
+ Merged multi_hit into one_hit and removed multi_hit. Call one_hit recursively if you need to.
+ You can now 'owhere rare' to show all rares not currently held by players.
+ Bug fix in area saving (they now save properly again).
+ Census command added for area/mud wide MOB stats.
+ Warcry is now a skill, not a spell. Beserk renamed properly to berserk.
+ All imm commands in wizhhelp have 100% complete helpfiles.
+ All mortal classes have 100% complete shelps.
+ Stake and decapitate removed from mortal classes for use in Super Hunter later.
+ All helpfiles are now stored individually on disk, and no longer im areas or memory. Options in config.h
+ Added a FIGHT_DATA list for chars fighting. More resource efficient than cycling the whole MUD.
+ Removed advance command (not needed).
+4.3.5 - 03 Jul 08:
+ Moved all super related stuff into its own struct, SUPER_DATA, within pcdata. This makes it more generic and easier to implement across all supers: vamp, wolf, and hunter (soon to be).
+ Added gossip back in; not sure why it left.
+ Fixed some minor level problems in the channel table.
+ Added a bv_log() (thanks Abel!) to change bitvectors to enums. All channels now support a 'history' argument that will display the last MAX_HISTORY on each channel.
+ Stance speed mods were redone for the new combat system, and now affect things.
+ Fixed remort skills being in the wrong classes, oops. Also removed Nth attacks and coded new skills to replace them.
+ Added fread_float to properly handle floats instead of the backwards hack I was using with atof().
+ Minor help updates. Slowly but surely.
+ Fixed a bug in sysdata and speed where I was incorrectly loading values with fread_number, so they all truncated at the decimal :).
+ Obj speed is now settable in the OLC. If an object has a speed set, it will use it. If not, it will generate randomly each time the obj is loaded.
+ Updated AREA_VERSION for this, so things should be backwards (but not forwards) compatible. IE: old areas will load fine, but once updated to the new version are unusable on an old format game.
+ Speed properly in to test now.
+ Added some consistency to logging and file naming.
+ The sysdata command got a COMPLETE overhaul, and it now exceptionally more useful and easier to expand / maintain. Helpfiles added for it, too. Read them!
+ Quest mobs will no longer auto-assist other NPCs or be aggressive.
+4.3.4 - 01 Jun 08:
+ Damage spells now have a +/- 10% randomness. It's pretty boring seeing the exact same damage all the time!
+ strcat and the old safe_strcat were replaced with a newer xcat, along the lines of xprintf.
+ When using 'long <str>' on an obj or mob it will auto-newline. No more need to $edit to add it.
+ Moved most things to xprintf by Darien. It will log (to file and in-game) what overflows a buffer and the exact location in the code. Some things couldn't move, yet, as they rely on sprintf returning an int.
+ Fixed a rare permanent loop issue in IMC.
+ Fixed autoquest to ignore imms.
+ Added an autodig feature for builders to automatically dig out exits while walking if enabled.
+ Added Runter's bitmask system. This is not in active use yet, but I will be moving things to it slowly.
+ Imms now see the vnum of mobs and objs while in the builder.
+ Updated every mob in the game to have an appropriate race.
+ Fixed a minor log inconsistency and imms now see mob races in addition to player races.
+ Added 3 new player/npc races and 1 npc race.
+ 'rlist' will now display a data sheet per race with 'rlist <abbr>'.
+ The race table has a new bool of has_money for configuring races that drop cash when they die (stop giving rats gold!).
+ Changed load_obj() to not randomize the level if an obj is level 1 (was messing up newbie school gear).
+ Mobs now take 8 hours to fill up on gold rather than 2.
+ Removed the old has_exp_fix checks as they no longer apply.
+ The imcrefresh routine goes off at midnight (game time) to help keep the mud connected to IMC. Only works if autoconnect is turned on.
+4.3.3 - 24 May 08:
+ Minor helpfile updates.
+ Removed some duplicate code in bust_a_prompt() and added some new options.
+ GCC4 fix in PUT_FREE; things compile cleanly once again!
+ Updated max vnums to ~1.6bil. It can probably go higher, but really, do people need more?
+ Removed rolling for stats from char creation. You now assign your own stats up to racial maximums.
+ Added a commented block to comm.c for IP binding if it's ever needed.
+ Removed quest_points from ch_data, moved everything to utilize the unused one in pc_data.
+ Added statraise to raise permenant stats based on a request from Jawzith at the forums.
+ Consolidated helps and system areas.
+ Added checks in load_objects(), load_mobiles(), and load_rooms() to log if a vnum is out of range for the area it is in when loaded.
+ Removed the silly immskll struct, commands should be handled via trust, not imtlset (now gone).
+ Updated default prompt and 'prompt all' to something more user friendly.
+ Added char_exists() func for future use to see if a pfile is valid.
+4.3.2 - 21 May 08:
+ Fixed race_table to properly correlate preferred class order between values.
+ Updated user CPU seconds logging to match the rest of the log.
+ Default quest item ranges are now correct out of the box.
+ Removed references of pcdata->index as it seemed to be a duplicate of pcdata->order to hold class orders. Updated the base Creator pfiles along with this.
+ Fixed a minor color issue in IMC, and hooked it to ACK!MUD monitor system.
+ Properly re-ordered remorts to better reflect base classes.
+ Updated the IMC2 client to IMC2 Freedom CL-2.1a.

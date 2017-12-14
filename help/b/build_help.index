@@ -1,0 +1,26 @@
+BUILD HELP : INDEX
+--------------------
+
++===========================================+===========================+
+|           	BASICS  	            |          	OTHERS          |
++-------------------------------------------+---------------------------+
+| Objects	Rooms		Vnums       |	Editor		Doors   |
+| Mobiles	Resets		Building    |	Extra		Shops   |
+| Flags		Strings		Tagline     |   Specials		|
++-------------------------------------------+---------------------------+
+|				COMMANDS	                        |
++-----------------------------------------------------------------------+
+| Goto		List		X		Showarea	Showmob |
+| Showroom	Showobject	Showresets	Findarea	Findmob |
+| Findmobroom	Findroom	Findobject	Set		Stop    |
+| Dig		Addobject	Addmob		Addreset	Addroom |
+| Delobject	Delreset	Delroom		Delmobile	Redit	|
+| Forcereset	Oedit		Medit		Nedit		Setvnum	|
+| Values	Liquids		Weapons		Spells	        Sysdata |
+| Aobj                                                                  |
++-----------------------------------------------------------------------+
+|				FLAGS					|
++-----------------------------------------------------------------------+
+| Rflags	Rsector		Rexit		Mflags		Maff	|
+| Otypes	Oflags		Owear		Oloc		Oaff	|
++=======================================================================+

@@ -1,0 +1,29 @@
+SYSDATA
+
+OPTION               DESCRIPTION
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Damcap               Limits the maximum damage a player or mob will do
+                     in a single hit (spell or melee).
+Exp Multiplier       All exp gained is multiplied by this number.
+Kills Per Lev        This adjusts how many same-level mobs a player needs to
+                     kill, on average, per level. Decreasing will make the
+                     game easier to level, increasing will make it slower.
+Max Pushback         This adjusts how much pushback casters take per spell
+                     by multiplying this value * the spell's cast time. For
+                     example: 1 would disable pushback entirely, while 2 would
+                     allow spells to take a maximum of (2 * cast_time) to cast.
+Mob AC               Every mob's AC is multiplied by this number each load.
+Mob DR               Every mob's DR is multiplied by this number each load.
+Mob HP               Every mob's HP is multiplied by this number each load.
+Mob HR               Every mob's HR is multiplied by this number each load.
+Mob MP               Every mob's MP is multiplied by this number each load.
+Mob MV               Every mob's MV is multiplied by this number each load.
+Mob SVS              Every mob's SVS is multiplied by this number each load.
+Playtesters          These characters are allowed to login while the game
+                     is wizlocked.
+Pulse Per Sec        The number of game 'pulses' each second. This will directly
+                     affect combat update speed. 100 allows for 1/100th second
+                     precision, and so on. Adjust this very carefully.
+Show Damage          Toggles displaying numeric damage in combat.
+Wizlocked            Shows if the game is currently wizlocked. Info only.
+                     To change this setting, use the wizlock command.

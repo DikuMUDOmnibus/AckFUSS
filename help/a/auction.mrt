@@ -1,0 +1,7 @@
+AUCTION
+
+AUCTION will let you place an item from your inventory up for bidding
+to the highest buyer. Auctions are automated once started. To place an
+item up for auction use "auction <item> <reserve price>". If no bids
+are placed, or the reserve is not met, the item will be returned to
+you.
